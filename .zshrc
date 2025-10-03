@@ -21,8 +21,7 @@ autoload -U +X bashcompinit && bashcompinit
 
 # prompt format
 setopt PROMPT_SUBST
-source "$HOME/git_repos/config/scm-prompt.sh"
-PROMPT='%F{208}%n@%F{039}%M%F{226}:%~%F{red}$(_scm_prompt) '
+PROMPT='%F{208}%n@%F{039}%M%F{226}:%~%F{red}TODO:git '
 
 # Prefer vim or else fail over to vi
 EDITOR="$(command -v vim 2>/dev/null || command -v vi)"
@@ -53,10 +52,40 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 
 # ssh
-# start ssh-agent if not running already and load keys
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
-fi
-if [[ ! -f "$SSH_AUTH_SOCK" ]]; then
-    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
-fi
+eval $(keychain --eval --quiet github)
+
+# jujutsu stuff
+source <(jj util completion zsh)
+
+# jj commits
+alias jjc="jj commit"
+alias jjn="jj new"
+alias jjd="jj describe -m"
+alias jjdi="jj diff"
+
+# jj navigation
+alias jje="jj edit"
+alias jjn="jj next"
+alias jjp="jj prev"
+
+# jj changing commit history
+alias jjr="jj rebase"
+alias jjsq="jj squash"
+alias jjsp="jj split"
+alias jja="jj abandon"
+
+# jj git
+alias jjg="jj git"
+alias jjf="jj git fetch"
+alias jjpr="jj git push --allow-new -r"  # usually want this one
+alias jjpc="jj git push --allow-new -c"  # if don't care about remote branch name
+alias jjpb="jj git push --allow-new -b"  # if specifying local branch name
+alias jjcl="jj git clone"
+
+# jj bookmarks
+alias jjb="jj bookmark"
+alias jjbs="jj bookmark set"
+alias jjbd="jj bookmark delete"
+alias jjbr="jj bookmark rename"
+alias jjbl="jj bookmark list"
+alias jjbt="jj bookmark track main@origin"  # when in a new repo, track main branch

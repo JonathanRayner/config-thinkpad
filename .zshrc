@@ -65,8 +65,8 @@ alias jjdi="jj diff"
 
 # jj navigation
 alias jje="jj edit"
-alias jjn="jj next"
-alias jjp="jj prev"
+alias jjne="jj next"
+alias jjpr="jj prev"
 
 # jj changing commit history
 alias jjr="jj rebase"
@@ -77,7 +77,7 @@ alias jja="jj abandon"
 # jj git
 alias jjg="jj git"
 alias jjf="jj git fetch"
-alias jjpr="jj git push --allow-new -r"  # usually want this one
+alias jjp="jj git push --allow-new -r"  # usually want this one
 alias jjpc="jj git push --allow-new -c"  # if don't care about remote branch name
 alias jjpb="jj git push --allow-new -b"  # if specifying local branch name
 alias jjcl="jj git clone"
